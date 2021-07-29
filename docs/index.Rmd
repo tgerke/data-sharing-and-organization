@@ -1,0 +1,91 @@
+---
+title: "Data sharing and organization"
+author: Travis Gerke, ScD
+output:
+  xaringan::moon_reader:
+    css: xaringan-themer.css
+    seal: false
+---
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+# the two PCCTC colors are #0085ca and #62b5e5
+# complement of #62b5e5 is #e59262
+style_duo_accent(
+  primary_color = "#62b5e5",
+  secondary_color = "#e59262",
+  colors = list(
+    blue = "#62b5e5",
+    orange = "#e59262"
+  ),
+  extra_fonts = list(google_font("Raleway"))
+)
+```
+
+class: title-slide-custom
+
+## Data Sharing and Organization
+
+### Travis Gerke, ScD
+
+---
+
+## What we're going to talk about
+
+* Entering data into spreadsheets **.orange[the right way]**
+  * [Data Organization in Spreadsheets](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989) (Broman & Woo, 2018)
+  * [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) (Wickham, 2014)
+  * [How to Name Files](https://rstats.wtf/how-to-name-files.html) (Bryan, 2015)
+
+* Sharing **.orange[analysis-ready]** data with collaborators 
+  * [How to Share Data for Collaboration](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7518408/pdf/nihms-1502431.pdf) (Ellis & Leek, 2018)
+  * [Column Names as Contracts](https://emilyriederer.netlify.app/post/column-name-contracts/) (Riederer, 2020)
+  * [Field Notes: Building Data Dictionaries](https://caitlinhudon.com/2018/10/30/data-dictionaries/) (Hudon, 2018)
+
+<!--
+Photo by <a href="https://unsplash.com/@nananadolgo?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nana Smirnova</a> on <a href="https://unsplash.com/s/photos/data?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+-->
+  
+<!-- tip for title css from
+https://stackoverflow.com/questions/64269808/is-it-possible-to-adjust-background-image-opacity-in-a-xaringan-slideshow
+-->
+```{css, echo = F}
+.title-slide-custom {
+  position: relative;
+  z-index: 1;
+}
+
+.title-slide-custom h2 {
+  font-size: 1.3em;
+  position: absolute;
+  bottom: 3%;
+  left: 2%;
+}
+
+.title-slide-custom h3 {
+  font-size: .75em;
+  color: var(--orange);
+  position: absolute;
+  bottom: 0%;
+  left: 2%;
+}
+
+.title-slide-custom::before {    
+      content: "";
+      background-image: url('images/nana-smirnova-IEiAmhXehwE-unsplash.jpg');
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.7;
+      z-index: -1;
+}
+
+.big {
+  color: var(--blue);
+  font-size: 3em;
+  font-weight: 700;
+}
+```

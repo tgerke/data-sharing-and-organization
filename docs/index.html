@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Data sharing and organization</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Travis Gerke, ScD" />
+    <script src="index_files/header-attrs-2.8/header-attrs.js"></script>
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+
+
+
+class: title-slide-custom
+
+## Data Sharing and Organization
+
+### Travis Gerke, ScD
+
+---
+
+## What we're going to talk about
+
+* Entering data into spreadsheets **.orange[the right way]**
+  * [Data Organization in Spreadsheets](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989) (Broman &amp; Woo, 2018)
+  * [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) (Wickham, 2014)
+  * [How to Name Files](https://rstats.wtf/how-to-name-files.html) (Bryan, 2015)
+
+* Sharing **.orange[analysis-ready]** data with collaborators 
+  * [How to Share Data for Collaboration](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7518408/pdf/nihms-1502431.pdf) (Ellis &amp; Leek, 2018)
+  * [Column Names as Contracts](https://emilyriederer.netlify.app/post/column-name-contracts/) (Riederer, 2020)
+  * [Field Notes: Building Data Dictionaries](https://caitlinhudon.com/2018/10/30/data-dictionaries/) (Hudon, 2018)
+
+&lt;!--
+Photo by &lt;a href="https://unsplash.com/@nananadolgo?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"&gt;Nana Smirnova&lt;/a&gt; on &lt;a href="https://unsplash.com/s/photos/data?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"&gt;Unsplash&lt;/a&gt;
+--&gt;
+  
+&lt;!-- tip for title css from
+https://stackoverflow.com/questions/64269808/is-it-possible-to-adjust-background-image-opacity-in-a-xaringan-slideshow
+--&gt;
+&lt;style type="text/css"&gt;
+.title-slide-custom {
+  position: relative;
+  z-index: 1;
+}
+
+.title-slide-custom h2 {
+  font-size: 1.3em;
+  position: absolute;
+  bottom: 3%;
+  left: 2%;
+}
+
+.title-slide-custom h3 {
+  font-size: .75em;
+  color: var(--orange);
+  position: absolute;
+  bottom: 0%;
+  left: 2%;
+}
+
+.title-slide-custom::before {    
+      content: "";
+      background-image: url('images/nana-smirnova-IEiAmhXehwE-unsplash.jpg');
+      background-size: cover;
+      position: absolute;
+      top: 0px;
+      right: 0px;
+      bottom: 0px;
+      left: 0px;
+      opacity: 0.7;
+      z-index: -1;
+}
+
+.big {
+  color: var(--blue);
+  font-size: 3em;
+  font-weight: 700;
+}
+&lt;/style&gt;
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create();
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
