@@ -41,6 +41,8 @@ https://rstudio-conf-2020.github.io/what-they-forgot/materials/project-oriented-
   * [Column Names as Contracts](https://emilyriederer.netlify.app/post/column-name-contracts/) (Riederer, 2020)
   * [Field Notes: Building Data Dictionaries](https://caitlinhudon.com/2018/10/30/data-dictionaries/) (Hudon, 2018)
 
+* I will provide **7 rules** which summarize the above resources to help you
+
 ---
 class: blue-bg, center, middle
 
@@ -102,6 +104,40 @@ class: highlight-last-item
 &lt;br&gt;&lt;br&gt;&lt;br&gt;
 &gt; Tidy datasets are all alike, but every messy dataset is messy in its own way. 
 .right[-Wickham]
+
+---
+class: highlight-last-item
+
+## Make data rectangular
+
+Often aiming for a proper rectangle is a good way to get to tidy data
+
+Things that are not represented as a cell in the rectangle will cause problems (including blanks)!
+
+--
+
+- No empty cells (often used to imply data)
+
+  - Use `NA` or `-` to show missingness (more on this later)
+
+--
+
+- Only one row for a column header
+
+--
+
+- No data represented as cell/font colors
+
+---
+**Untidy** &amp;#x1F625;
+.w-90[
+![](images/untidy-data.png)
+]
+
+**Tidy** &amp;#x1F604;
+.w-50[
+![](images/tidy-data.png)
+]
 
 ---
 class: blue-bg, center, middle
@@ -202,31 +238,116 @@ class: blue-bg, center, middle
 ![](images/samiam.png)
 ]
 
-
 ---
 class: blue-bg, center, middle
 
 .small-rule[RULE 5:]
-## .white[Enter consistent codes]
+## .white[Enter values consistently]
 
 ---
-## Enter consistent values
+class: highlight-last-item
+
+## Enter values consistently
 
 * Occasional abbreviations: don't
-  * `Male` &amp;ne; `M`
   
+  * `Male` &amp;ne; `M`
+
+--
+
 * Case matters
+
   * `Male` &amp;ne; `male`
 
+--
+
 * White space matters
+
   * `Male` &amp;ne; &lt;span style="background-color: #e8e8e8"&gt;&amp;nbsp;&lt;/span&gt;`Male`
 
-* Always use consitent missing values!
+--
+
+* Always use consistent missing values!
+
   * **.orange[Good:]** `NA` or `-`
+
   * **.orange[Bad:]** `999`, explanatory notes about missingness (ok as a separate column)
 
+---
+class: blue-bg, center, middle
+
+.small-rule[RULE 6:]
+## .white[Save raw data and calculated/derived data as separate tables]
 
 ---
+## A tale of two tables
+
+1. **.orange[The raw data]**
+  
+  * Often some untidy mess sent by a vendor, well-meaning collaborator
+
+  * NEVER CHANGE THIS FILE
+  
+  * Properties of raw data: **(1)** have not been manipulated by software or humans, **(2)** no data have been removed, **(3)** no data have been summarized
+    
+2. **.orange[The tidy / analysis-ready / summarized data]**
+
+  * You took the raw data, and made it useful. All of those steps DID NOT HAPPEN in the raw table; rather you made a copy, and arrived at this table
+  
+  * Likely operations: renaming columns, recoding missing variables, deriving new variables which are combinations of others
+  
+--
+
+  * Which brings me to the last rule...
+
+---
+class: blue-bg, center, middle
+
+.small-rule[RULE 7:]
+## .white[Make a data dictionary]
+
+---
+## Make a data dictionary
+
+What this should typically incude (adapted from [Caitin Hudon](https://caitlinhudon.com/2018/10/30/data-dictionaries/)): 
+
+* **.orange[Table:]** the table name (name of spreadsheet or tab), exactly the way it appears
+* **.orange[Table Notes:]** general notes on the table, like the theme of the data in the table, how often it gets updated, and where it comes from
+* **.orange[Field:]** the field name, exactly as it appears in the data
+* **.orange[Definition:]** a user-friendly (often long-form) definition of the field. _For derived variables, describes the exact steps you took to get from raw to derived_
+* **.orange[Example value:]** used to show what data in that field actually looks like
+* **.orange[Field notes:]** general notes on the field, sometimes including values, caveats or notes of interest, and places (like tables) to find more information about that field
+
+.h-center[
+![](images/dictionary.png)
+]
+
+---
+class: blue-bg, center, middle
+
+## .white[Final remarks]
+
+---
+## A general rule of thumb
+
+Imagine you are sending data to your future self, and your future self has no memory of the source or context surrounding these data. Ask two questions:
+
+&gt; **(1)** Would future you be able to efficiently figure out (_without asking anyone for help_) how to produce insights from the data?
+
+&gt; **(2)** Would future you be able to explain why you are confident that the insights you produce are accurate?
+
+If the answer is "no / not sure," it's very likely that one of the seven rules has not been followed.
+
+--
+&lt;hr&gt;
+
+  * [Data Organization in Spreadsheets](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989) (Broman &amp; Woo, 2018)
+  * [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) (Wickham, 2014)
+  * [How to Name Files](https://rstats.wtf/how-to-name-files.html) (Bryan, 2015)
+  * [How to Share Data for Collaboration](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7518408/pdf/nihms-1502431.pdf) (Ellis &amp; Leek, 2018)
+  * [Column Names as Contracts](https://emilyriederer.netlify.app/post/column-name-contracts/) (Riederer, 2020)
+  * [Field Notes: Building Data Dictionaries](https://caitlinhudon.com/2018/10/30/data-dictionaries/) (Hudon, 2018)
+
 
 &lt;!-- tip for title css from
 https://stackoverflow.com/questions/64269808/is-it-possible-to-adjust-background-image-opacity-in-a-xaringan-slideshow
