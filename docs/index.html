@@ -19,6 +19,10 @@ class: title-slide-custom
 
 ### Travis Gerke, ScD
 
+&lt;!--
+Photo by &lt;a href="https://unsplash.com/@nananadolgo?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"&gt;Nana Smirnova&lt;/a&gt; on &lt;a href="https://unsplash.com/s/photos/data?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"&gt;Unsplash&lt;/a&gt;
+--&gt;
+
 ---
 
 ## What we're going to talk about
@@ -27,32 +31,218 @@ class: title-slide-custom
   * [Data Organization in Spreadsheets](https://www.tandfonline.com/doi/full/10.1080/00031305.2017.1375989) (Broman &amp; Woo, 2018)
   * [Tidy Data](https://www.jstatsoft.org/article/view/v059i10) (Wickham, 2014)
   * [How to Name Files](https://rstats.wtf/how-to-name-files.html) (Bryan, 2015)
+&lt;!-- 
+also slides 49-61 at
+https://rstudio-conf-2020.github.io/what-they-forgot/materials/project-oriented-workflow.pdf
+--&gt;
 
 * Sharing **.orange[analysis-ready]** data with collaborators 
   * [How to Share Data for Collaboration](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7518408/pdf/nihms-1502431.pdf) (Ellis &amp; Leek, 2018)
   * [Column Names as Contracts](https://emilyriederer.netlify.app/post/column-name-contracts/) (Riederer, 2020)
   * [Field Notes: Building Data Dictionaries](https://caitlinhudon.com/2018/10/30/data-dictionaries/) (Hudon, 2018)
 
-&lt;!--
-Photo by &lt;a href="https://unsplash.com/@nananadolgo?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"&gt;Nana Smirnova&lt;/a&gt; on &lt;a href="https://unsplash.com/s/photos/data?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText"&gt;Unsplash&lt;/a&gt;
---&gt;
+---
+class: blue-bg, center, middle
+
+## .white[Spreadsheet] .orange[horror] .white[stories]
+
+---
+class: center, middle
+
+![](images/horror-stories-1.png)
+
+---
+class: center, middle
+
+![](images/rename-genome.png)
+![](images/excel-gene-names.gif)
+
+---
+class: center, middle
+
+![](images/horror-stories-2.png)
+
+--
+&lt;hr&gt;
+
+![](images/horror-stories-3.png)
+
+--
+&lt;hr&gt;
+
+![](images/horror-stories-4.png)
+
+---
+class: blue-bg, center, middle
+
+.small-rule[RULE 1:]
+## .white[Make tidy data]
+
+---
+class: highlight-last-item
+
+## How to make tidy data
+
+1. Each variable forms a column
+
+--
+
+2. Each observation of that variable forms a row
+
+--
+
+3. Each "kind" of data gets its own table
+
+--
+
+4. When there are multiple tables, each table has a common column with another table that allows merging
+
+--
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;
+&gt; Tidy datasets are all alike, but every messy dataset is messy in its own way. 
+.right[-Wickham]
+
+---
+class: blue-bg, center, middle
+
+.small-rule[RULE 2:]
+## .white[Choose column names that humans] .orange[and] .white[machines will understand]
+
+---
+## Choose column names that humans **.orange[and]** machines will understand
+
+* Humans like words or long abbreviations
+
+  * **.orange[Good:]** `baseline_tumor_size`, `dt_salvage_chemo`
+  * **.orange[Bad:]** `ts0`, `d_sal_ch`
+
+--
+
+* Computers don't like spaces and special characters (except `-` and `_`)
+
+  * `$` `@` `%` `#` `&amp;` `*` `,` `!` `/` have special meanings in programming
+  * Consistently use only one of `-` or `_`
+  * **.orange[Good:]** `sex`, `weight`
+  * **.orange[Bad:]** `M/F`, `wgt.`
+
+---
+## Treat column names as contracts
+
+Name variables according to a consistent heirarchy, so that users (and machines) can tell from the name what to expect
+
+--
+
+**.orange[Level 1.]** Measure types
+  * `id` (identifier), `ind` (indicator), `n` (count), `dt` (date), `amt` (real number amount), `cat` (categorical)
+
+--
+
+**.orange[Level 2.]** Measure subjects
+  * `patient` (info about patient), `visit` (info about a visit), `lab` (info about a lab)
+
+--
   
+**.orange[Level 3+.]** Details
+  * `race`, `cost`, `psa`
+
+&lt;br&gt;
+
+--
+&lt;hr&gt; 
+
+Resulting names: `id_patient`, `dt_visit`, `amt_lab_psa`, `cat_patient_race`
+
+---
+class: blue-bg, center, middle
+
+.small-rule[RULE 3:]
+## .white[Name files as carefully as columns, and make sure they sort properly]
+
+---
+## File naming
+
+* Avoid spaces and special characters (except `-` and `_`)
+* Use `-` and `_` strategically
+  * Hyphens to separate words, underscores to separate categories
+* Pad single digits with leading `0`s
+* **.orange[Good:]** 
+  * `01_bayerproj_data-prep.R`
+  * `02_bayerproj_survival-analysis.R`
+  * `2021-03-27_bayerproj_KM-curves.pdf`
+  * `2021-04-19_bayerproj_KM-curves.pdf`
+  
+* **.orange[Bad:]**
+  * `dataprep.R`
+  * `survival analysis for bayer (1) final.R`
+  * `output (finalTG).pdf`
+  * `output (finalTG)final.pdf`
+
+---
+class: blue-bg, center, middle
+
+.small-rule[RULE 4:]
+## .white[Use ISO 8601 dates]
+
+---
+## Always use ISO 8601: YYYY-MM-DD
+
+* This is the only date format that will sort appropriately
+
+* A+ trick: you can (and should) turn off Excel's automatic date coversion behavior by:
+  1. Select a column
+  2. In the menu, go to Format &amp;rarr; Cells
+  3. Select `Text` as the Category
+
+--
+
+* Use 8601 when naming files, use 8601 when entering data, use 8601...
+
+.h-center.w-50[
+![](images/samiam.png)
+]
+
+
+---
+class: blue-bg, center, middle
+
+.small-rule[RULE 5:]
+## .white[Enter consistent codes]
+
+---
+## Enter consistent values
+
+* Occasional abbreviations: don't
+  * `Male` &amp;ne; `M`
+  
+* Case matters
+  * `Male` &amp;ne; `male`
+
+* White space matters
+  * `Male` &amp;ne; &lt;span style="background-color: #e8e8e8"&gt;&amp;nbsp;&lt;/span&gt;`Male`
+
+* Always use consitent missing values!
+  * **.orange[Good:]** `NA` or `-`
+  * **.orange[Bad:]** `999`, explanatory notes about missingness (ok as a separate column)
+
+
+---
+
 &lt;!-- tip for title css from
 https://stackoverflow.com/questions/64269808/is-it-possible-to-adjust-background-image-opacity-in-a-xaringan-slideshow
 --&gt;
+
 &lt;style type="text/css"&gt;
 .title-slide-custom {
   position: relative;
   z-index: 1;
 }
-
 .title-slide-custom h2 {
   font-size: 1.3em;
   position: absolute;
   bottom: 3%;
   left: 2%;
 }
-
 .title-slide-custom h3 {
   font-size: .75em;
   color: var(--orange);
@@ -60,7 +250,6 @@ https://stackoverflow.com/questions/64269808/is-it-possible-to-adjust-background
   bottom: 0%;
   left: 2%;
 }
-
 .title-slide-custom::before {    
       content: "";
       background-image: url('images/nana-smirnova-IEiAmhXehwE-unsplash.jpg');
@@ -73,15 +262,36 @@ https://stackoverflow.com/questions/64269808/is-it-possible-to-adjust-background
       opacity: 0.7;
       z-index: -1;
 }
-
 .title-slide-custom .remark-slide-number {
   display: none;
 }
+.blue-bg {
+  background-color: var(--blue);
+}
+.h-center {
+  margin: 0 auto;
+}
+.w-90 {
+  width: 90%;
+}
+.w-50 {
+  width: 50%;
+}
+.small-rule{
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--darkblue);
+}
 
-.big {
-  color: var(--blue);
-  font-size: 3em;
-  font-weight: 700;
+.highlight-last-item &gt; ul &gt; li, 
+.highlight-last-item &gt; ol &gt; li {
+  opacity: 0.5;
+  color: var(--orange);
+}
+.highlight-last-item &gt; ul &gt; li:last-of-type,
+.highlight-last-item &gt; ol &gt; li:last-of-type {
+  opacity: 1;
+  font-weight: bold;
 }
 &lt;/style&gt;
     </textarea>

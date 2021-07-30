@@ -63,6 +63,9 @@
   --black: #000000;
   --blue: #62b5e5;
   --orange: #e59262;
+  --white: #ffffff;
+  --purple: #d362e5;
+  --darkblue: #0085ca;
 }
 
 html {
@@ -279,5 +282,23 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
 }
 .bg-orange {
   background-color: var(--orange);
+}
+.white {
+  color: var(--white);
+}
+.bg-white {
+  background-color: var(--white);
+}
+.purple {
+  color: var(--purple);
+}
+.bg-purple {
+  background-color: var(--purple);
+}
+.darkblue {
+  color: var(--darkblue);
+}
+.bg-darkblue {
+  background-color: var(--darkblue);
 }
 
